@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevoutZhu · AI 产品作品集</title>
+<style>
+:root{
+  --bg-0:#0A0A0B; --bg-1:#111214; --bg-2:#17181B; --bg-3:#1E2026;
+  --line-1:#23252B; --line-2:#2E3139;
+  --text-0:#F2F3F5; --text-1:#B9BCC7; --text-2:#838791; --text-3:#565A64;
+  --accent:#F0A63A; --accent-strong:#FFC24B; --accent-dim:rgba(240,166,58,.12);
+  --win-bg:#0E0F12; --win-title:#1A1C21;
+  --shadow-lift:0 24px 48px -16px rgba(0,0,0,.6);
+  --shadow-win:0 40px 80px -24px rgba(0,0,0,.7);
+  --r-sm:8px; --r-md:12px; --r-lg:16px;
+  --container:1440px;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono","Fira Code","Cascadia Code",Consolas,"PingFang SC",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg-0);color:var(--text-1);font-family:var(--font-sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 40px}
+@media(max-width:900px){.wrap{padding:0 24px}}
+@media(max-width:640px){.wrap{padding:0 16px}}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ── Nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px);border-color:var(--line-1)}
+nav .wrap{display:flex;align-items:center;height:60px;gap:24px}
+.brand{font-family:var(--font-mono);font-weight:700;font-size:15px;color:var(--text-0)}
+.brand .dot{color:var(--accent)}
+nav .links{margin-left:auto;display:flex;gap:22px}
+nav .links a{font-size:13px;color:var(--text-2);transition:color .15s}
+nav .links a:hover{color:var(--text-0)}
+nav .links a.gh{color:var(--text-1)}
+
+/* ── Hero ── */
+.hero{padding:150px 0 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(var(--line-1) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(90deg,var(--line-1) 1px,transparent 1px) 0 0/40px 40px;
+  opacity:.05;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)}
+.hero::after{content:"";position:absolute;right:-10%;top:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(240,166,58,.10),transparent 70%)}
+.hero .wrap{position:relative}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:800;letter-spacing:-.02em;color:var(--text-0);line-height:1.12}
+.hero h1 .accent{color:var(--accent-strong)}
+.hero .lead{font-size:1.15rem;color:var(--text-1);margin-top:22px;max-width:760px}
+.signal{display:flex;gap:48px;margin-top:38px;flex-wrap:wrap}
+.signal .s{display:flex;flex-direction:column}
+.signal .s b{font-size:1.4rem;font-weight:700;color:var(--text-0);letter-spacing:.01em}
+.signal .s b .u{color:var(--accent)}
+.signal .s span{font-size:12.5px;color:var(--text-2)}
+.cta{display:flex;gap:12px;margin-top:38px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:11px 22px;border-radius:10px;border:1px solid var(--line-2);cursor:pointer;transition:all .15s}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#171207}
+.btn.primary:hover{background:var(--accent-strong)}
+.btn.ghost{background:transparent;color:var(--text-1)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--text-0)}
+
+/* ── Section ── */
+section{padding:64px 0}
+.sec-head{margin-bottom:38px}
+.sec-head .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+.sec-head h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:var(--text-0);letter-spacing:-.01em}
+.sec-head p{color:var(--text-2);margin-top:10px;font-size:15px;max-width:760px}
+
+/* ── 项目总览卡 ── */
+.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.overview{grid-template-columns:1fr}}
+.ocard{display:block;background:var(--bg-1);border:1px solid var(--line-1);border-radius:var(--r-lg);padding:26px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.ocard:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:var(--shadow-lift)}
+.ocard .num{font-family:var(--font-mono);font-size:13px;color:var(--text-3)}
+.ocard .badge{float:right;font-size:11px;font-weight:600;color:var(--accent-strong);background:var(--accent-dim);border:1px solid rgba(240,166,58,.25);padding:3px 10px;border-radius:100px}
+.ocard h3{font-size:1.35rem;font-weight:800;color:var(--text-0);margin-top:14px}
+.ocard .one{font-size:14px;color:var(--text-2);margin-top:8px}
+.ocard .tech{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.ocard .tech span{font-family:var(--font-mono);font-size:11px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--line-1);padding:3px 9px;border-radius:6px}
+.ocard .go{font-size:13px;color:var(--accent);margin-top:18px;display:inline-block}
+
+/* ── 项目详情 ── */
+.project{padding:56px 0}
+.proj-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.proj-head .idx{font-family:var(--font-mono);font-size:15px;color:var(--accent);font-weight:700}
+.proj-head h2{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:800;color:var(--text-0);letter-spacing:-.01em}
+.proj-head .badge{font-size:11.5px;font-weight:600;color:var(--accent-strong);background:var(--accent-dim);border:1px solid rgba(240,166,58,.25);padding:3px 11px;border-radius:100px}
+.proj-desc{color:var(--text-1);font-size:15.5px;max-width:1000px;margin-bottom:14px}
+.proj-tech{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px}
+.proj-tech span{font-family:var(--font-mono);font-size:11.5px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--line-1);padding:4px 10px;border-radius:6px}
+
+/* ── 应用窗口框 ── */
+.win{background:var(--win-bg);border:1px solid var(--line-2);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-win)}
+.win__bar{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:var(--win-title);border-bottom:1px solid var(--line-1)}
+.win__dots{display:flex;gap:6px;flex-shrink:0}
+.win__dots i{width:11px;height:11px;border-radius:50%;background:#3A3D46}
+.win__dots i:nth-child(1){background:#4a3f3f}.win__dots i:nth-child(2){background:#4a463a}.win__dots i:nth-child(3){background:#3f4a40}
+.win__title{font-family:var(--font-mono);font-size:12.5px;color:var(--text-2);flex:1;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.win__act{font-size:13px;color:var(--text-3);cursor:pointer;flex-shrink:0;padding:2px 6px;border-radius:5px}
+.win__act:hover{color:var(--text-1);background:var(--bg-3)}
+.win__body{position:relative;background:#000}
+.win__body img{width:100%;height:auto;display:block;cursor:zoom-in}
+.win__body .hint{position:absolute;bottom:0;left:0;right:0;padding:30px 16px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:11px;color:var(--text-2);pointer-events:none;display:flex;justify-content:center}
+/* 长截图（PromptLab 全页）主图限高：顶部展示，点灯箱看全图 */
+.viewer[data-tall] .win__body img{max-height:600px;object-fit:cover;object-position:top}
+
+/* ── 缩略图条 + 说明 ── */
+.viewer-controls{margin-top:14px}
+.thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;list-style:none}
+.thumbs.thumbs--3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.thumbs,.thumbs.thumbs--3{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.thumbs,.thumbs.thumbs--3{grid-template-columns:repeat(2,1fr)}}
+.thumb{position:relative;background:none;border:1px solid var(--line-1);border-radius:var(--r-sm);overflow:hidden;cursor:pointer;padding:0;transition:border-color .15s,transform .15s}
+.thumb img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.thumb:hover{transform:translateY(-2px);border-color:var(--line-2)}
+.thumb.is-active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.thumb .no{position:absolute;top:6px;left:6px;font-family:var(--font-mono);font-size:10.5px;color:var(--text-0);background:rgba(0,0,0,.6);padding:2px 6px;border-radius:4px}
+.thumb .label{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:11px;color:var(--text-1);background:linear-gradient(transparent,rgba(0,0,0,.8));text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.caption{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13.5px;color:var(--text-2)}
+.caption .arrow{color:var(--accent);font-family:var(--font-mono)}
+
+/* ── 行业标签页 ── */
+.tabs{display:inline-flex;gap:4px;padding:4px;background:var(--bg-2);border:1px solid var(--line-1);border-radius:10px;margin-bottom:18px;flex-wrap:wrap}
+.tab{font-family:var(--font-mono);font-size:13px;color:var(--text-2);padding:8px 20px;border-radius:7px;background:none;border:none;cursor:pointer;transition:all .15s}
+.tab:hover{color:var(--text-1)}
+.tab.is-active{background:var(--accent-dim);color:var(--accent-strong);font-weight:700}
+
+/* ── 灯箱 ── */
+.lb{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb .mask{position:absolute;inset:0;background:rgba(0,0,0,.88)}
+.lb .stage{position:relative;max-width:96vw;max-height:92vh;display:flex;flex-direction:column;gap:12px}
+.lb .stage img{max-width:96vw;max-height:82vh;object-fit:contain;border-radius:6px}
+.lb .bar{display:flex;align-items:center;gap:14px;color:var(--text-2);font-family:var(--font-mono);font-size:13px}
+.lb .bar .cap{flex:1}
+.lb .bar .count{color:var(--text-3)}
+.lb button{background:var(--bg-2);border:1px solid var(--line-2);color:var(--text-1);width:38px;height:38px;border-radius:8px;cursor:pointer;font-size:16px}
+.lb button:hover{border-color:var(--accent)}
+.lb .close{position:absolute;top:-14px;right:-14px}
+
+/* ── Footer ── */
+footer{border-top:1px solid var(--line-1);padding:44px 0;text-align:center}
+footer .f{font-family:var(--font-mono);font-size:14px;color:var(--text-0);font-weight:700}
+footer .n{font-size:12.5px;color:var(--text-3);margin-top:8px}
+footer .links{display:flex;gap:18px;justify-content:center;margin-top:14px}
+footer .links a{font-size:13px;color:var(--text-2)}
+footer .links a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <span class="brand">DevoutZhu<span class="dot">.</span></span>
+    <div class="links">
+      <a href="#projects">项目</a>
+      <a href="#contact">联系</a>
+      <a class="gh" href="https://github.com/DevoutZhu" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">AI 产品作品集</div>
+    <h1>把 AI，做成 <span class="accent">产品</span></h1>
+    <p class="lead">三个方向、三种形态：垂直行业成本管理、多行业 Agent 平台、Prompt 管理工具。</p>
+    <div class="signal">
+      <div class="s"><b>真实界面</b><span>每张截图来自真实运行</span></div>
+      <div class="s"><b>可运行</b><span>完整业务流程跑得通</span></div>
+      <div class="s"><b>完整产品</b><span>界面 · 交互 · 数据全链路</span></div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#projects">查看项目 ↓</a>
+      <a class="btn ghost" href="https://github.com/DevoutZhu" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</header>
+
+<!-- 项目总览 -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="k">Projects</div>
+      <h2>三个 AI 产品</h2>
+      <p>复杂业务场景、多行业平台、开发者工具——三个方向，三种 AI 产品形态。</p>
+    </div>
+    <div class="overview">
+      <a class="ocard" href="#p-cost">
+        <span class="badge">AI 产品 · 复杂业务</span><span class="num">01</span>
+        <h3>整车成本财务系统</h3>
+        <p class="one">成本管理在制造业的深度应用——BOM 下钻、核算、VAVE 降本、对标、归档关账。</p>
+        <div class="tech"><span>React</span><span>TypeScript</span><span>数据可视化</span></div>
+        <span class="go">查看详情 →</span>
+      </a>
+      <a class="ocard" href="#p-starcore">
+        <span class="badge">AI 产品 · 多行业</span><span class="num">02</span>
+        <h3>星核 Agent 平台</h3>
+        <p class="one">四行业 AI Agent 产品，三层大脑架构，Agent 可插拔、可扩展、开箱即用。</p>
+        <div class="tech"><span>Electron</span><span>React</span><span>Python</span></div>
+        <span class="go">查看详情 →</span>
+      </a>
+      <a class="ocard" href="#p-promptlab">
+        <span class="badge">AI 产品 · Prompt 管理</span><span class="num">03</span>
+        <h3>PromptLab</h3>
+        <p class="one">Prompt 管理平台——版本、diff、A/B、自动化评测，开源发布。</p>
+        <div class="tech"><span>Next.js</span><span>TypeScript</span><span>开源</span></div>
+        <span class="go">查看详情 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 项目 01 整车成本系统 -->
+<section class="project" id="p-cost">
+  <div class="wrap">
+    <div class="proj-head"><span class="idx">01</span><h2>整车成本财务系统</h2><span class="badge">AI 产品 · 复杂业务场景</span></div>
+    <p class="proj-desc">整车成本链条长、口径多、跨部门容易不一致。这套系统把成本从 BOM 三级下钻、成本核算、VAVE 降本、竞品对标到归档关账全部结构化，形成完整的可视化界面——AI 产品不只是通用工具，也能做进真实、复杂、不容错的业务场景。</p>
+    <div class="proj-tech"><span>React</span><span>TypeScript</span><span>ECharts</span><span>成本核算</span><span>BOM 三级下钻</span></div>
+
+    <div class="viewer" data-gallery data-window="星核 · 整车成本系统">
+      <figure class="win">
+        <header class="win__bar">
+          <span class="win__dots"><i></i><i></i><i></i></span>
+          <span class="win__title">星核 · 整车成本系统 — 仪表盘总览</span>
+          <span class="win__act" title="全屏" data-zoom>⛶</span>
+        </header>
+        <div class="win__body"><img class="main" src="img/cost-01-dashboard.png" alt="整车成本仪表盘"><div class="hint">点击图片放大 · ← → 切换</div></div>
+      </figure>
+      <div class="viewer-controls">
+        <ul class="thumbs">
+          <li><button class="thumb is-active" data-src="img/cost-01-dashboard.png" data-cap="仪表盘总览 · 成本 KPI 与结构可视化" data-title="星核 · 整车成本系统 — 仪表盘总览"><span class="no">01</span><img src="img/cost-01-dashboard.png" alt=""><span class="label">仪表盘</span></button></li>
+          <li><button class="thumb" data-src="img/cost-02-bom.png" data-cap="BOM 三级下钻 · 整车→系统→零件逐级穿透" data-title="星核 · 整车成本系统 — BOM 三级下钻"><span class="no">02</span><img src="img/cost-02-bom.png" alt=""><span class="label">BOM 下钻</span></button></li>
+          <li><button class="thumb" data-src="img/cost-03-vave.png" data-cap="VAVE 降本 · 降本方案与目标达成对比" data-title="星核 · 整车成本系统 — VAVE 降本"><span class="no">03</span><img src="img/cost-03-vave.png" alt=""><span class="label">VAVE 降本</span></button></li>
+          <li><button class="thumb" data-src="img/cost-04-accounting.png" data-cap="成本核算 · 料工费分摊与成本明细" data-title="星核 · 整车成本系统 — 成本核算"><span class="no">04</span><img src="img/cost-04-accounting.png" alt=""><span class="label">成本核算</span></button></li>
+          <li><button class="thumb" data-src="img/cost-05-benchmark.png" data-cap="竞品对标 · 与竞品车型成本对标" data-title="星核 · 整车成本系统 — 竞品对标"><span class="no">05</span><img src="img/cost-05-benchmark.png" alt=""><span class="label">竞品对标</span></button></li>
+          <li><button class="thumb" data-src="img/cost-06-archive.png" data-cap="归档关账 · 财务期间归档与关账流程" data-title="星核 · 整车成本系统 — 归档关账"><span class="no">06</span><img src="img/cost-06-archive.png" alt=""><span class="label">归档关账</span></button></li>
+        </ul>
+        <div class="caption"><span class="arrow">▸</span><span class="cap-text">仪表盘总览 · 成本 KPI 与结构可视化</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 项目 02 星核 Agent 平台 -->
+<section class="project" id="p-starcore" style="background:var(--bg-1)">
+  <div class="wrap">
+    <div class="proj-head"><span class="idx">02</span><h2>星核 Agent 平台</h2><span class="badge">AI 产品 · 多行业 Agent 平台</span></div>
+    <p class="proj-desc">单个 Agent 只能解决一件事，换行业就要重做。星核用「意图路由 → Agent 池 → 通用大脑」三层架构，把通用推理与行业专精解耦——新增行业或岗位，不再是从零的重复建设，覆盖电商、医药、金融、教育四大行业。</p>
+    <div class="proj-tech"><span>Electron</span><span>React 18</span><span>Python</span><span>DeepSeek / Kimi</span><span>三层大脑架构</span></div>
+
+    <div class="viewer" data-gallery data-industry data-window="星核 2.0">
+      <div class="tabs" role="tablist" aria-label="行业切换">
+        <button class="tab is-active" data-ind="ecommerce" role="tab" aria-selected="true">电商</button>
+        <button class="tab" data-ind="pharma" role="tab" aria-selected="false">医药</button>
+        <button class="tab" data-ind="education" role="tab" aria-selected="false">教育</button>
+        <button class="tab" data-ind="finance" role="tab" aria-selected="false">金融</button>
+      </div>
+      <figure class="win">
+        <header class="win__bar">
+          <span class="win__dots"><i></i><i></i><i></i></span>
+          <span class="win__title">星核 2.0 · 电商岗位工作台</span>
+          <span class="win__act" title="全屏" data-zoom>⛶</span>
+        </header>
+        <div class="win__body"><img class="main" src="img/ind-1-ecommerce-workspace.png" alt="电商数据看板"><div class="hint">点击图片放大 · ← → 切换</div></div>
+      </figure>
+      <div class="viewer-controls">
+        <ul class="thumbs thumbs--3" data-thumbs>
+          <li><button class="thumb is-active" data-src="img/ind-1-ecommerce-workspace.png" data-cap="电商数据看板 · 岗位工作台" data-title="星核 2.0 · 电商岗位工作台"><span class="no">01</span><img src="img/ind-1-ecommerce-workspace.png" alt=""><span class="label">数据看板</span></button></li>
+          <li><button class="thumb" data-src="img/ind-1-ecommerce-select.png" data-cap="岗位选择界面 · 进入行业后选择岗位" data-title="星核 2.0 · 电商岗位选择"><span class="no">02</span><img src="img/ind-1-ecommerce-select.png" alt=""><span class="label">岗位选择</span></button></li>
+          <li><button class="thumb" data-src="img/ind-1-ecommerce-bento.png" data-cap="电商岗位体系 · 决策层到执行层完整岗位地图" data-title="星核 2.0 · 电商岗位体系"><span class="no">03</span><img src="img/ind-1-ecommerce-bento.png" alt=""><span class="label">岗位体系</span></button></li>
+        </ul>
+        <div class="caption"><span class="arrow">▸</span><span class="cap-text">电商数据看板 · 岗位工作台</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 项目 03 PromptLab -->
+<section class="project" id="p-promptlab">
+  <div class="wrap">
+    <div class="proj-head"><span class="idx">03</span><h2>PromptLab</h2><span class="badge">AI 产品 · Prompt 管理工具</span></div>
+    <p class="proj-desc">大模型应用里 Prompt 散落在代码各处，改一版不知道有没有变好。PromptLab 把 Prompt 当成「会被频繁改动的资产」来管理——版本可追溯、改动可回滚、效果可量化评测，以完整产品形态开源发布。</p>
+    <div class="proj-tech"><span>Next.js 14</span><span>TypeScript</span><span>LLM-as-Judge</span><span>A/B 实验</span><span>开源</span></div>
+
+    <div class="viewer" data-gallery data-tall data-window="app.promptlab.dev">
+      <figure class="win">
+        <header class="win__bar">
+          <span class="win__dots"><i></i><i></i><i></i></span>
+          <span class="win__title">app.promptlab.dev</span>
+          <span class="win__act" title="全屏" data-zoom>⛶</span>
+        </header>
+        <div class="win__body"><img class="main" src="img/promptlab-01-hero.png" alt="PromptLab 首页"><div class="hint">点击图片放大 · ← → 切换</div></div>
+      </figure>
+      <div class="viewer-controls">
+        <ul class="thumbs">
+          <li><button class="thumb is-active" data-src="img/promptlab-01-hero.png" data-cap="首页 · 项目库总览" data-title="app.promptlab.dev"><span class="no">01</span><img src="img/promptlab-01-hero.png" alt=""><span class="label">首页</span></button></li>
+          <li><button class="thumb" data-src="img/promptlab-02-dashboard.png" data-cap="仪表盘 · 项目与实验概览" data-title="app.promptlab.dev · 仪表盘"><span class="no">02</span><img src="img/promptlab-02-dashboard.png" alt=""><span class="label">仪表盘</span></button></li>
+          <li><button class="thumb" data-src="img/promptlab-03-editor.png" data-cap="Prompt 编辑器 · 版本管理与 diff" data-title="app.promptlab.dev · 版本管理"><span class="no">03</span><img src="img/promptlab-03-editor.png" alt=""><span class="label">版本管理</span></button></li>
+          <li><button class="thumb" data-src="img/promptlab-04-experiment.png" data-cap="A/B 实验 · 多版本效果对比" data-title="app.promptlab.dev · A/B 实验"><span class="no">04</span><img src="img/promptlab-04-experiment.png" alt=""><span class="label">A/B 实验</span></button></li>
+        </ul>
+        <div class="caption"><span class="arrow">▸</span><span class="cap-text">首页 · 项目库总览</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="f">DevoutZhu<span style="color:var(--accent)">.</span></div>
+    <div class="n">AI 产品作品 · 真实界面 · 可运行</div>
+    <div class="links">
+      <a href="https://github.com/DevoutZhu" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:devoutzt@gmail.com">devoutzt@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- 灯箱 -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="截图查看">
+  <div class="mask" data-close></div>
+  <div class="stage">
+    <img id="lbImg" src="" alt="">
+    <div class="bar">
+      <button id="lbPrev" aria-label="上一张">‹</button>
+      <span class="cap" id="lbCap"></span>
+      <span class="count" id="lbCount"></span>
+      <button id="lbNext" aria-label="下一张">›</button>
+    </div>
+    <button class="close" data-close aria-label="关闭">✕</button>
+  </div>
+</div>
+
+<script>
+// ── 导航滚动 ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+
+// ── 行业数据（项目 02）── 每行业 3 张：数据看板 → 岗位选择 → 岗位体系
+const INDUSTRIES = {
+  ecommerce: { name: '电商', shots: [
+    { src: 'img/ind-1-ecommerce-workspace.png', cap: '电商数据看板 · 岗位工作台', title: '星核 2.0 · 电商岗位工作台', label: '数据看板' },
+    { src: 'img/ind-1-ecommerce-select.png', cap: '岗位选择界面 · 进入行业后选择岗位', title: '星核 2.0 · 电商岗位选择', label: '岗位选择' },
+    { src: 'img/ind-1-ecommerce-bento.png', cap: '电商岗位体系 · 决策层到执行层完整岗位地图', title: '星核 2.0 · 电商岗位体系', label: '岗位体系' },
+  ] },
+  pharma: { name: '医药', shots: [
+    { src: 'img/ind-2-pharma-workspace.png', cap: '医药数据看板 · 岗位工作台', title: '星核 2.0 · 医药岗位工作台', label: '数据看板' },
+    { src: 'img/ind-2-pharma-select.png', cap: '岗位选择界面 · 进入行业后选择岗位', title: '星核 2.0 · 医药岗位选择', label: '岗位选择' },
+    { src: 'img/ind-2-pharma-bento.png', cap: '医药岗位体系 · 质量/研发/生产/临床完整地图', title: '星核 2.0 · 医药岗位体系', label: '岗位体系' },
+  ] },
+  education: { name: '教育', shots: [
+    { src: 'img/ind-3-education-workspace.png', cap: '教育数据看板 · 岗位工作台', title: '星核 2.0 · 教育岗位工作台', label: '数据看板' },
+    { src: 'img/ind-3-education-select.png', cap: '岗位选择界面 · 进入行业后选择岗位', title: '星核 2.0 · 教育岗位选择', label: '岗位选择' },
+    { src: 'img/ind-3-education-bento.png', cap: '教育岗位体系 · 教学/课程/管理完整地图', title: '星核 2.0 · 教育岗位体系', label: '岗位体系' },
+  ] },
+  finance: { name: '金融', shots: [
+    { src: 'img/ind-4-finance-workspace.png', cap: '金融数据看板 · 岗位工作台', title: '星核 2.0 · 金融岗位工作台', label: '数据看板' },
+    { src: 'img/ind-4-finance-select.png', cap: '岗位选择界面 · 进入行业后选择岗位', title: '星核 2.0 · 金融岗位选择', label: '岗位选择' },
+    { src: 'img/ind-4-finance-bento.png', cap: '金融岗位体系 · 风控/合规/财务完整地图', title: '星核 2.0 · 金融岗位体系', label: '岗位体系' },
+  ] },
+};
+
+// ── 通用画廊初始化 ──
+function initGallery(viewer) {
+  const win = viewer.querySelector('.win__body .main');
+  const titleEl = viewer.querySelector('.win__title');
+  const capEl = viewer.querySelector('.cap-text');
+  const thumbs = [...viewer.querySelectorAll('.thumb')];
+  const isIndustry = viewer.hasAttribute('data-industry');
+
+  function setByButton(btn) {
+    win.src = btn.dataset.src;
+    win.alt = btn.dataset.cap;
+    titleEl.textContent = btn.dataset.title;
+    capEl.textContent = btn.dataset.cap;
+    thumbs.forEach(t => t.classList.toggle('is-active', t === btn));
+  }
+  thumbs.forEach(btn => btn.addEventListener('click', () => setByButton(btn)));
+
+  if (isIndustry) {
+    const tabs = [...viewer.querySelectorAll('.tab')];
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('is-active'); tab.setAttribute('aria-selected', 'true');
+      const ind = INDUSTRIES[tab.dataset.ind];
+      const thumbWrap = viewer.querySelector('[data-thumbs]');
+      thumbWrap.innerHTML = '';
+      ind.shots.forEach((s, i) => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.className = 'thumb' + (i === 0 ? ' is-active' : '');
+        btn.dataset.src = s.src; btn.dataset.cap = s.cap; btn.dataset.title = s.title;
+        btn.innerHTML = `<span class="no">0${i + 1}</span><img src="${s.src}" alt=""><span class="label">${s.label}</span>`;
+        btn.addEventListener('click', () => setByButton(btn));
+        li.appendChild(btn); thumbWrap.appendChild(li);
+      });
+      const first = thumbWrap.querySelector('.thumb');
+      setByButton(first);
+      thumbs.length = 0; thumbs.push(...thumbWrap.querySelectorAll('.thumb'));
+    }));
+  }
+}
+
+// ── 灯箱 ──
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+const lbCount = document.getElementById('lbCount');
+let lbThumbs = [], lbIdx = 0;
+
+function openLb(viewer, activeBtn) {
+  lbThumbs = [...viewer.querySelectorAll('.thumb')];
+  lbIdx = Math.max(0, lbThumbs.indexOf(activeBtn));
+  renderLb();
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function renderLb() {
+  const btn = lbThumbs[lbIdx];
+  lbImg.src = btn.dataset.src;
+  lbCap.textContent = btn.dataset.cap;
+  lbCount.textContent = (lbIdx + 1) + ' / ' + lbThumbs.length;
+}
+function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('lbPrev').addEventListener('click', () => { lbIdx = (lbIdx - 1 + lbThumbs.length) % lbThumbs.length; renderLb(); });
+document.getElementById('lbNext').addEventListener('click', () => { lbIdx = (lbIdx + 1) % lbThumbs.length; renderLb(); });
+document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeLb));
+document.addEventListener('keydown', e => {
+  if (lb.classList.contains('open')) {
+    if (e.key === 'Escape') closeLb();
+    else if (e.key === 'ArrowLeft') { lbIdx = (lbIdx - 1 + lbThumbs.length) % lbThumbs.length; renderLb(); }
+    else if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbThumbs.length; renderLb(); }
+  }
+});
+
+// ── 绑定所有画廊 ──
+document.querySelectorAll('.viewer[data-gallery]').forEach(viewer => {
+  initGallery(viewer);
+  const main = viewer.querySelector('.win__body .main');
+  const zoom = viewer.querySelector('[data-zoom]');
+  const openFor = () => {
+    const active = viewer.querySelector('.thumb.is-active') || viewer.querySelector('.thumb');
+    openLb(viewer, active);
+  };
+  main.addEventListener('click', openFor);
+  if (zoom) zoom.addEventListener('click', openFor);
+});
+</script>
+</body>
+</html>
