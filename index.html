@@ -72,7 +72,7 @@ section{padding:64px 0}
 .sec-head p{color:var(--text-2);margin-top:10px;font-size:15px;max-width:760px}
 
 /* ── 项目总览卡 ── */
-.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
 @media(max-width:900px){.overview{grid-template-columns:1fr}}
 .ocard{display:block;background:var(--bg-1);border:1px solid var(--line-1);border-radius:var(--r-lg);padding:26px;transition:transform .18s,border-color .18s,box-shadow .18s}
 .ocard:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:var(--shadow-lift)}
